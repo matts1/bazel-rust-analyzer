@@ -1,0 +1,78 @@
+{
+  "name": "bazel-rust-analyzer",
+  "icon": "icon.png",
+  "displayName": "bazel rust-analyzer",
+  "description": "This extension provides support for the rust programming language when using bazel. It is an adapter for rust-analyzer.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "keywords": [
+    "rust"
+  ],
+  "releaseTag": null,
+  "publisher": "MattStark",
+  "repository": {
+      "url": "https://github.com/matts1/bazel-rust-analyzer.git",
+      "type": "git"
+  },
+  "homepage": "https://github.com/matts1/bazel-rust-analyzer.git",
+  "license": "MIT OR Apache-2.0",
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": ["onLanguage:rust"],
+  "contributes": {
+    "commands": [
+      {
+        "command": "bazel-rust-analyzer.genRustProjectFromOpenFiles",
+        "title": "Generate a rust-project.json for all open files"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Rust-analyzer bazel settings",
+      "properties": {
+        "bazel-rust-analyzer.genRustProjectCommand": {
+          "type": ["null", "array"],
+          "items": {
+            "type": "string"
+          },
+          "title": "Generate rust project command",
+          "default": null,
+          "description": "Custom command to generate a rust project."
+        },
+        "bazel-rust-analyzer.autoGenRustProjectCommand": {
+          "type": "boolean",
+          "title": "Automatically run generate rust project command on file open",
+          "default": false,
+          "description": "Automatically generates a rust-project when you open a new rust file."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.76.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "async-mutex": "^0.4.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5",
+    "@vscode/test-electron": "^2.3.0"
+  },
+  "extensionDependencies": ["rust-lang.rust-analyzer"]
+}
